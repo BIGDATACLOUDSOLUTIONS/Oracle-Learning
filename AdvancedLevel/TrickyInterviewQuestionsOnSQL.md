@@ -26,11 +26,19 @@ Option 1: Use Subquery
 Option 2: Use Not equals
   select MAX(Salary) from Employee WHERE Salary <> (select MAX(Salary) from Employee)
 
-Q. Write SQL query to get the nth highest salary among all Employees?
-Answer:  select * from (select *, row_number() over (order by salary desc) as salorder from employee) a where salorder=3;
-
 Q. How can we retrieve alternate records from a table in Hive?
-Answer: select * from (select *, row_number() over (order by id) as position from employee) a where position%2=0;
+Answer: We can use rownum and MOD function to retrieve the alternate records from a table.
+To get Even number records:
+SELECT *
+FROM (SELECT rownum, ID, Name
+FROM Employee)
+WHERE MOD(rownum,2)=0;
+
+To get Odd number records:
+SELECT *
+FROM (SELECT rownum, ID, Name
+FROM Employee)
+WHERE MOD(rownum,2)=1;
 
 Q. Write a SQL Query to find Max salary and Department name from each department.
 Trick: There can be some department without any employee. So we have to ask the interviewer if they expect the name of such department also in result.
@@ -61,11 +69,10 @@ Table B:
 | 45|
 +---+
 
-Answer: We can use MINUS operator in case of oracle and EXCEPT for sql server. EXCEPT function is also available in spark which compares all rows and columns.
-Hive:As per much knowledge, In hive we don't have any function like except or minus and hence we have to use NOT IN
-select id from tableA where id not in (select id from tableB)
+Answer: We can use MINUS operator in this case for Oracle and EXCEPT for SQL Server.
+Query will  be as follows:
+SELECT * FROM Table_A MINUS SELECT * FROM Table_B
 ```
-
 
 ```text
 Q. What is the result of following query?
