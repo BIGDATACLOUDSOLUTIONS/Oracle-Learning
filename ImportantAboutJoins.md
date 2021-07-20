@@ -1,3 +1,4 @@
+```text
 ID,ENAME,DEPT,COMPID
 1,James Potter,ICP,1001
 2,Ethan McCarty,ETA,NULL
@@ -51,5 +52,6 @@ If we want to conditionally fetch values from the lookup table then the addition
 condition using AND operator, e.g. a need to show details of all employees and in addition model of allocated computer for only those employees who are allocated a computer manufactured in '2014'.
 select Id,Ename,E.CompId as E_CompId, C.CompId as C_CompId, Model
 from Employee E LEFT OUTER JOIN COMPUTER C ON E.CompId=C.CompId AND Dept= 'ETA';
+```
 
  
